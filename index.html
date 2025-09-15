@@ -3,16 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <title>Random</title>
 </head>
 <body>
-    <div class="wrapper">
-        <div id="gcorr"></div>
-        <div id="gseri"></div>
+    <div class="container">
+    <div class="row">
+        <h1>Randomness</h1>
+        <h2>La aleatoriedad y las computadoras</h2>
+        <p>Las computadoras son máquinas determinstas. Cada vez que alimentamos un programa con la misma entrada obtenemos el mismo resultado. Esto vuelve a las computadoras incapaces de producir números aleatorios. Sin embargo, las utilizamos todo el tiempo para hacer cálculos que dependen de la aleatoriedad. Por ejemplo para modelos Montecarlo, para encriptar mensajes o para seleccionar muestras de conjuntos más grandes. De tal manera que la generación de números que parezcan aleatorios es muy importante.</p>
+        <p>Esta página muestra algunos experimentos con simulaciones de números aleatorios producidos por la computadora en la que la estés viendo. Contiene herramientas para generar números pseudoaleatorios, para jugar con ellos y mostrar algunas de sus propiedades. Cada que cargas la página se producen nuevas versiones de las gráficas y de los colores utilizados para explorar la aleatoriedad. </p>
+        <h2>¿Qué es aleatorio?</h2>
+        <p>Cuando un fenómeno no se puede predecir decimos que es aleatorio. Por lo tanto, un solo número no puede ser aleatorio. La manera en la que se produce el número podría serlo. Cuando algo es muy difícil de predecir resulta muy útil describirlo como si fuera aleatorio. Una secuencia de números, por ejemplo, la pensamos como aleatoria si los números no dependen unos de otros. Es decir, si no puedo calcular el número siguiente usando los números previamente generados.</p>
+        <p>Las computadoras son capaces de generar secuencias de números pseudoaleatorios, es decir, que se comportan como si fueran aleatorios. La correlación entre los números de una secuencia de este tipo debe ser mínima. Una de las maneras de generar estas secuencias es con el <a href="https://es.wikipedia.org/wiki/Generador_lineal_congruencial">Generador Lineal Congruencial</a>. Un algoritmo que a partir del número anterior produce el siguiente. Este algoritmo utiliza 4 parámetros.</p>
+        <ul>
+        <li>el módulo, m</li>
+        <li>el multiplicador, a</li>
+        <li>el incremento, c</li>
+        <li>el número inicial o semilla, r0</li>
+        </ul>
+
+        <p>A partir de estos cuatro parámetros calcula números pseudoaleatorios entre 0 y el valor del módulo. Este algoritmo genera secuencias de números y conforme el valor de los parámetros estos números tienen mayor o menor correlación entre ellos. Una de las desventajas del algoritmo es que produce secuencias que después de una cierta cantidad de números se repite.</p>
+
+        <h2>Secuencias de números pseudoaleatorios</h2>
+        <p>La primera herramienta te permite generar estas secuencias escogiendo los parámetros del algoritmo. La gráfica muestra la secuencia, en el eje x se encuentra el índice de la secuencia y en el eje y se encuentra el número generado. Si te fijas detenidamente en el primer círculo y el último verás que se encuentran en el mismo valor de y. Esto es porque la secuencia se muestra completa. Se puede usar el algoritmo para generar más números pero solamente se repitiría la serie. Si juegas un poco con los parámetros verás que a veces obtienes secuencias bastante largas y a veces algunas muy cortas.</p>
+
+    </div>
+    <div class="row">
+        <p>Utiliza los controles para cambiar los parámetros del algoritmo. Al cambiar el módulo los otros dos parámetros se establecen al azar. </p>
+        <div class="controles">
+            <label for="modulus" class="form-label">Modulo: <strong><span id="modval">1024</span></strong></label>
+            <input type="range" class="form-range" min="1" max="2048" id="modulus">
+            <label for="multiplier" class="form-label">Multiplicador: <strong><span id="mulval"></span></strong></label>
+            <input type="range" class="form-range" min="1" max="1024" id="multiplier">
+            <label for="increment" class="form-label">Incremento: <strong><span id="incval"></span></strong></label>
+            <input type="range" class="form-range" min="0" max="1024" id="increment">
+        </div>
+        <div id="gseri" class="col-12"></div>
+        <p>Este algoritmo es muy usado en tu computadora para generar secuencias de números pseudoaleatorios. Conforme el valor de los parámetros, especialmente el módulo, es más grande el periodo para el cual la secuencia comienza a repetirse se vuelve cada vez más largo. En tu computadora se utiliza con valores de los parámetros bastante grandes.</p>
+        <p>Si te fijas con detalle en la serie podras detectar patrones dentro de ella, estructuras que se repiten y que muestran que los números están correlacionados entre si y por lo tanto no son realmente aleatorios.</p>
+        <p>Para comparar con números pseudoaleatorios con menor correlación puedes ver la siguiente gráfica en dónde se muestra una secuencia de números del mismo tamaño calculada con el algoritmo que usa Javascript en tu computadora para generar números pseudoaletaorios. A ojo podrás detectar que tiene menor cantidad de patrones detectables.</p>
+        <div id="gserib"  class="col-12"></div>
     </div>
 
+    <div class="row">
+        <p>A ojo es posible ver en algunos casos las diferencias entre ambos algoritmos. Una manera más potente es hacer una gráfica que muestre en el eje x el número calculado en el paso i y en el eje y el número calculado en el paso i+1. Es decir, una gráfica que busque si un número generado depende del número anterior.</p>
+        <p>Las siguientes gráficas muestran la correlación entre un número y el siguiente para ambos algoritmos. Si los números son realmente aleatorios no debería de existir ninguna correlación entre ellos y estas gráficas no mostrarían patrones. Sin embargo, es muy perceptible como el primer algoritmo es mucho más debil y produce estructuras correlacionadas.</p>
+        <div id="gcorr"  class="col-6"></div>
+        <div id="gcorrb"  class="col-6"></div>
+        <p>Las cuatro gráficas dependen de los parámetros seleccionados con los controles. Regresa y juega con ellos para encontrar conjuntos de los parámetros que estén más o menos correlacionados. Algunos conjuntos producen patrones de correlación muy interesantes.</p>
+    </div>
+
+    <h3>Caminantes aleatorios</h3>
+    <p>Se pueden hacer muchas cosas con números aleatorios. Una de las más interesantes son las <a href="https://es.wikipedia.org/wiki/Camino_aleatorio">caminatas aleatorias</a>. Supongamos que un caminante se encuentra en el punto x=0 y y=0 al principio de la caminata (t=0). Este caminante va a emprender una caminata, pero la dirección de sus pasos serán decididos por números aleatorios. A cada instante cambia la dirección de su caminata de forma aleatoria y da un paso. ¿Qué tan lejos llegaría un caminante que cambia su rumbo de forma aleatoria todo el tiempo?</p>
+    <div class="row">
+        <div class="col-5">
+            <p>La siguiente gráfica muestra a uno de estos caminantes. El control te permite decidir el número de pasos que caminará el caminante. El punto blanco marca el inicio de la caminata mientras que el otro punto marca el final.</p>
+            <label for="caminante" class="form-label">Pasos: <strong><span id="camval">1000</span></strong></label>
+            <input type="range" class="form-range" min="300" max="30000" id="caminante">
+            <div id="cam1"></div>
+            <p>En la gráfica anterior se puede observar que un caminante aleatorio deambula por el espacio de forma errática como era de esperarse. Sin embargo, podemos notar también que ciertas regiones del espacio se llenan con su caminata. Cada vez que se cambia el número de pasos la caminata se dirige hacia una región diferente. Si repetimos las caminatas muchas veces se cubrirían todas las direcciónes. Sin embargo, en términos de distancia pareciera que mientras más dura la caminata el caminante es capaz de llegar más lejos. ¿Hasta dónde llega un caminante aleatorio?</p>
+        </div>
+        <div  class="col-7">
+            <p>En esta herramienta puedes hacer un gran número de caminatas, todas del mismo número de pasos. Si observas con cuidado notarás que cuando se tienen suficientes caminatas aleatorias se cubren todas las direcciones y además todas cubren más o menos la misma distancia promedio.</p>
+            <label for="ncam" class="form-label">Pasos: <strong><span id="ncamval">1000</span></strong></label>
+            <input type="range" class="form-range" min="300" max="10000" id="ncam">
+            <label for="kcam" class="form-label">Caminatas: <strong><span id="kcamval">30</span></strong></label>
+            <input type="range" class="form-range" min="1" max="31" id="kcam">
+            <div id="camv"></div>
+        </div>
+    </div>
+
+    <h3>Distancia promedio de un caminante</h3>
+    <p>Si un caminante recorre muchas caminatas con el mismo número de pasos podríamos promediar la distancia a la que llega cada una de esas caminatas. Es decir, para un número de pasos N podemos calcular la distancia promedio a la que llega el caminante.</p>
+    <p>Analíticamente se puede calcular que esta distancia varía con el número de pasos y es proporcional a la raíz cuadrada de N. Es decir, mientras más pasos tenga la caminata más lejos llegará el caminante en promedio. ¿Qué tan lejos? Una distancia igual a la distancia de un paso multiplicada por la raíz de el número de pasos de la caminata.</p>
+    <div class="row">
+        <div id="gseri3"  class="col-6"></div>
+        <div id="gcorr3"  class="col-6"></div>
+    </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
     <script src="random.js" type="module"></script>
+    <script src="rwalks.js" type="module"></script>
+    <script src="walkers.js" type="module"></script>
 </body>
 </html>
